@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/QR_Code_Generator.iml" filepath="$PROJECT_DIR$/.idea/QR_Code_Generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/qr-code-generator.iml" filepath="$PROJECT_DIR$/.idea/qr-code-generator.iml" />
     </modules>
   </component>
 </project>

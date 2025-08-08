@@ -21,7 +21,7 @@ class MainWindow(tk.Tk):
                                                    .open('color-wheel-icon.png')
                                                    .resize((15, 15)))
         self.delete_entry_img = ImageTk.PhotoImage(Image
-                                                   .open('erase.png')
+                                                   .open('eraser.png')
                                                    .resize((15, 15)))
         # Top widgets
         self.menu1 = tk.Menu(self)
@@ -122,10 +122,10 @@ class MainWindow(tk.Tk):
         self.qr_code_preview = tk.Label(self.preview_frame)
         self.qr_code_preview.pack(anchor=tk.CENTER, expand=True)
         self.qr_code_info = tk.Label(self.center_frame)
-        self.qr_code_info.place_configure(in_=self.qr_code_preview,
+        self.qr_code_info.place_configure(in_=self.preview_frame,
                                           anchor=tk.CENTER,
                                           relx=0.5,
-                                          rely=1.1)
+                                          rely=1)
         self.qr_code_info.place()
         self.center_buttons_frame = tk.Frame(self.center_frame)
         self.center_buttons_frame.pack(side=tk.TOP, pady=(0, 25), fill=tk.X)
@@ -239,7 +239,8 @@ class MainWindow(tk.Tk):
         self.qr_code_entry.bind("<KeyPress>", self.update_preview)
         entries = self.colors_frame
         options_children = (self.options1.winfo_children()
-                            + self.options2.winfo_children())
+                            + self.options2.winfo_children()
+                            + self.logo_options_frame.winfo_children())
         for child in options_children:
             if isinstance(child, ttk.Combobox):
                 child.bind('<<ComboboxSelected>>', self.update_preview)

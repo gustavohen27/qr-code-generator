@@ -60,7 +60,7 @@ def paste_logo(obj, qr_code):
         if obj.resize_var.get() == 1:
             logo = logo.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
         else:
-            scale = (qr_width * obj.logo_proportion) / max(logo_width, logo_height)
+            scale = (qr_width * obj.LOGO_PROPORTION) / max(logo_width, logo_height)
             new_size = (int(logo_width * scale), int(logo_height * scale))
             logo = logo.resize(new_size, Image.Resampling.LANCZOS)
     else:

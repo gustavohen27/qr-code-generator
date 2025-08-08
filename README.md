@@ -21,3 +21,8 @@ Um aplicativo desktop em Python para gerar QR Codes personalizados com suporte a
 - [qrcode](https://pypi.org/project/qrcode/) — Geração de QR Codes
 - [Pillow](https://pypi.org/project/Pillow/) — Manipulação de imagens
 - [os, io, base64] — Utilitários internos
+
+### 🎯 Exemplos de QR Codes gerados
+
+![QR Code 1](assets/test.png)
+![QR Code 2](assets/test2.png)
