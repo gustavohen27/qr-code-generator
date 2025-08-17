@@ -24,5 +24,5 @@ Um aplicativo desktop em Python para gerar QR Codes personalizados com suporte a
 
 ### 🎯 Exemplos de QR Codes gerados
 
-![QR Code 1](assets/test.png)
-![QR Code 2](assets/test2.png)
+![QR Code 1](example1.png)
+![QR Code 2](example2.png)
