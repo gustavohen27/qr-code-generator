@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, Label, filedialog, messagebox, LabelFrame, Frame
+from types import NoneType
+
 import qrcode
+
+import configurations
+import multipleGenerator
 import utils
 from utils import choose_color
 from PIL import Image, ImageTk
@@ -13,7 +18,12 @@ class MainWindow(tk.Tk):
     def __init__(self):
         super().__init__()
         self.geometry('1000x500')
+        self.title("QR Code Generator")
         self.LOGO_PROPORTION = 0.2
+        self.configurations_enabled = False
+        self.multiple_generator_enabled = False
+        self.configurations = None
+        self.multiple_generator = None
         self.choose_logo_img = ImageTk.PhotoImage(Image
                                                   .open('file-icon.png')
                                                   .resize((20, 20)))
@@ -26,35 +36,38 @@ class MainWindow(tk.Tk):
         # Top widgets
         self.menu1 = tk.Menu(self)
         self.config(menu=self.menu1)
-        self.file_menu = tk.Menu(self.menu1,
+        self.file_menu1 = tk.Menu(self.menu1,
                                  tearoff=0)
-        self.file_menu.add_command(
+        self.file_menu1.add_command(
             label='Save QR Code',
             command=save_qr_code,
         )
-        '''
-        self.file_menu.add_command(
+        self.file_menu1.add_command(
             label='Load QR Code',
-            command=utils.load_qr_code,
+            command=lambda: utils.load_qr_code(self),
         )
-        
-        self.file_menu.add_command(
-            label='Open configurations',
-            command=self.destroy,  # Adicionar comando
-        )
-        self.file_menu.add_command(
-            label='Open multiple generator',
-            command=self.destroy,  # Adicionar comando
-        )
-        self.file_menu.add_command(
+        self.file_menu1.add_command(
             label='Exit',
             command=self.destroy,  # Adicionar comando
         )
-        '''
+        self.file_menu2 = tk.Menu(self.menu1,
+                                  tearoff=0)
+        self.file_menu2.add_command(
+            label='Open configurations',
+            command=lambda: self.open_configurations(),  # Adicionar comando
+        )
+        self.file_menu2.add_command(
+            label='Open multiple generator',
+            command=self.open_multiple_generator,  # Adicionar comando
+        )
         # Menu title
         self.menu1.add_cascade(
             label="File",
-            menu=self.file_menu
+            menu=self.file_menu1
+        )
+        self.menu1.add_cascade(
+            label="Others",
+            menu=self.file_menu2
         )
         # Left frame widgets
         self.left_frame = tk.Frame(self)
@@ -247,13 +260,17 @@ class MainWindow(tk.Tk):
                 child['state'] = 'readonly'
         self.qr_code_info.lift()
         # Widgets methods
-        methods = {
+        self.methods = {
             'value': [self.qr_code_entry],
             'logo': [self.logo_entry],
             'color': [self.qr_code_color],
             'background': [self.bg_color],
-            'logo color': [self.logo_color]
-
+            'logo_color': [self.logo_color],
+            'version': [self.version_entry],
+            'box_size': [self.box_size_entry],
+            'border': [self.border_entry],
+            'resize_logo': [self.resize_var],
+            'logo_aspect_ratio': [self.aspect_ratio_var]
         }
 
     def change_qr_code_color(self, e=None):
@@ -273,15 +290,26 @@ class MainWindow(tk.Tk):
         self.update_preview()
 
     def show_qr_code(self):
-        qr_code = generate_qr_code().convert("RGB")
-        size = f'{qr_code.size[0]}x{qr_code.size[1]}'
-        self.qr_code_info.config(text=f'Size: {size}')
-        utils.paste_logo(main_window, qr_code)
-        if qr_code.size[0] > 250:
-            qr_code = qr_code.resize((250, 250))
-        qr_code = ImageTk.PhotoImage(qr_code)
-        self.qr_code_preview.config(image=qr_code)
-        self.qr_code_preview.image = qr_code
+        try:
+            for key, value in self.methods.items():
+                new_value = utils.value_verifier(key, value[0].get())
+                utils.change_entry(value[0], new_value)
+            self.save_qr_code.config(state="normal")
+            qr_code = generate_qr_code().convert("RGB")
+            size = f'{qr_code.size[0]}x{qr_code.size[1]}'
+            self.qr_code_info.config(text=f'Size: {size}')
+            utils.paste_logo(main_window, qr_code)
+            if qr_code.size[0] > 250:
+                qr_code = qr_code.resize((250, 250))
+            qr_code = ImageTk.PhotoImage(qr_code)
+            self.qr_code_preview.config(image=qr_code)
+            self.qr_code_preview.image = qr_code
+        except (AttributeError, TypeError):
+            warning_img = ImageTk.PhotoImage(Image
+                                                      .open('warning-icon.png')
+                                                      .resize((100, 100)))
+            self.qr_code_preview.config(image=warning_img)
+            self.save_qr_code.config(state=tk.DISABLED)
 
     def update_preview(self, e=None):
         self.show_qr_code()
@@ -294,27 +322,58 @@ class MainWindow(tk.Tk):
 
     def delete_entry(self, entry):
         original_state = entry.cget('state')
-        print("DELETE")
         entry.config(state=tk.NORMAL)
         entry.delete(0, tk.END)
         entry.config(state=original_state)
         self.update_preview()
 
+    def open_configurations(self):
+        def disable(e):
+            self.configurations_enabled = False
+
+        def enable():
+            self.configurations = configurations.Configurations()
+            self.configurations.bind('<Destroy>', disable)
+            self.configurations_enabled = True
+        if not self.configurations_enabled:
+            enable()
+        else:
+            self.configurations.destroy()
+            enable()
+
+    def open_multiple_generator(self):
+        def disable(e):
+            self.multiple_generator_enabled = False
+
+        def enable():
+            self.multiple_generator = multipleGenerator.MultipleGenerator()
+            self.multiple_generator.bind('<Destroy>', disable)
+            self.multiple_generator_enabled = True
+        if not self.multiple_generator_enabled:
+            enable()
+        else:
+            self.multiple_generator.destroy()
+            enable()
+
 
 def generate_qr_code():
     print("GERANDO...")
-    qr_code = qrcode.QRCode(version=main_window.selected_version.get(),
-                            box_size=main_window.selected_box_size.get(),
-                            border=main_window.selected_border.get(),
-                            error_correction=qrcode.constants.ERROR_CORRECT_L)
-    qr_code.add_data(main_window.qr_code_entry.get())
-    qr_code.make(fit=True)
-    qr_code = qr_code.make_image(fill_color=main_window.qr_code_color
-                                 .get() or 'black',
-                                 back_color=main_window.bg_color
-                                 .get() or 'white')
+    try:
+        qr_code = qrcode.QRCode(version=main_window.selected_version.get(),
+                                box_size=main_window.selected_box_size.get(),
+                                border=main_window.selected_border.get(),
+                                error_correction=qrcode.constants.ERROR_CORRECT_L)
+        qr_code.add_data(main_window.qr_code_entry.get())
+        qr_code.make(fit=True)
+        qr_code = qr_code.make_image(fill_color=main_window.qr_code_color
+                                     .get() or 'black',
+                                     back_color=main_window.bg_color
+                                     .get() or 'white')
 
-    return qr_code
+        return qr_code
+    except ValueError:
+        messagebox.showerror("There was an error", "Please review the values while generating the QR Code")
+
 
 
 def save_qr_code():

@@ -1,8 +1,10 @@
 import tkinter as tk
-from tkinter import colorchooser, filedialog, messagebox
+from tkinter import colorchooser, filedialog, messagebox, ttk
 from PIL import Image, ImageOps
 import qrcode
-
+from csv import DictReader
+from os import path
+from re import match
 
 def choose_color(prompt="Choose the color", entry=None):
     cor = colorchooser.askcolor(title=prompt)[1]
@@ -26,8 +28,8 @@ def choose_img(prompt="Choose the color", entry=None):
         return file
 
 
-def load_qr_code():
-    file = filedialog.askopenfile(
+def load_qr_code(obj):
+    path = filedialog.askopenfilename(
         defaultextension='.csv',
         filetypes=[
             ("CSV", "*.csv"),
@@ -35,13 +37,23 @@ def load_qr_code():
         ],
         title="Open QR Code file"
     )
-    if file:
-        file = file.readlines()
-        if len(file) > 2:
-            messagebox.showerror("File too long", "Only 1 QR Code can be loaded by time, else, use the multi generator")
-        else:
-            # Implementar
-            return file
+    if path:
+        with open(path, mode='r') as file:
+            if len(file.readlines()) > 2:
+                messagebox.showerror("File too long", "Only 1 QR Code can be loaded by time, else, use the multi generator")
+            else:
+                file.seek(0)
+                reader = DictReader(file)
+                data = [row for row in reader] # Converte para um dicionário
+                for key, entry in obj.methods.items():
+                    if isinstance(entry[0], tk.Entry):
+                        original_state = entry[0].cget('state')
+                        entry[0].config(state=tk.NORMAL)
+                        entry[0].delete(0, tk.END)
+                        entry[0].insert(0, data[0][key])
+                        entry[0].config(state=original_state)
+                    elif isinstance(entry[0], tk.IntVar):
+                        entry[0].set(data[0][key])
     return None
 
 def paste_logo(obj, qr_code):
@@ -82,3 +94,58 @@ def paste_logo(obj, qr_code):
     qr_code.paste(logo, pos, mask=logo)
 
     return qr_code
+
+def value_verifier(value_type, value):
+    if value_type == "value":
+        return value
+    elif value_type == "logo":
+        if path.exists(value):
+            return value
+    elif value_type == "color":
+        # Implementar
+        pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
+        valid = bool(match(pattern, value))
+        if valid:
+            return value
+        return ""
+    elif value_type == "background":
+        pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
+        valid = bool(match(pattern, value))
+        if valid:
+            return value
+        return ""
+    elif value_type == "logo_color":
+        pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
+        valid = bool(match(pattern, value))
+        if valid:
+            return value
+        return ""
+    elif value_type == "version":
+        if value in [str(i) for i in range(1, 41)]:
+            return value
+        return '1'
+    elif value_type == "box_size":
+        if value in [str(i) for i in range(1, 11)]:
+            return value
+        return '10'
+    elif value_type == "border":
+        if value in [str(i) for i in range(0, 11)]:
+            return value
+        return '4'
+    elif value_type in ["resize_logo", "logo_aspect_ratio"]:
+        if value in [i for i in range(0, 2)]:
+            return value
+        return 1
+
+def change_entry(entry, value):
+    try:
+        if isinstance(entry, tk.Entry):
+            original_state = entry.cget('state')
+            entry.config(state=tk.NORMAL)
+            entry.delete(0, tk.END)
+            entry.insert(0, value or "")
+            entry.config(state=original_state)
+        elif isinstance(entry, (tk.IntVar, ttk.Combobox)):
+            entry.set(value)
+    except ValueError:
+        return None
