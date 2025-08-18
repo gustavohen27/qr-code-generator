@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, Label, filedialog, messagebox, LabelFrame, Frame
-from types import NoneType
 
 import qrcode
 
@@ -266,6 +265,7 @@ class MainWindow(tk.Tk):
             'color': [self.qr_code_color],
             'background': [self.bg_color],
             'logo_color': [self.logo_color],
+            'logo_size': [self.logo_size_var],
             'version': [self.version_entry],
             'box_size': [self.box_size_entry],
             'border': [self.border_entry],
@@ -282,7 +282,7 @@ class MainWindow(tk.Tk):
         self.update_preview()
 
     def choose_image(self, e=None):
-        utils.choose_img("Choose the logo", self.logo_entry)
+        utils.choose_file("Choose the logo", self.logo_entry)
         self.update_preview()
 
     def change_logo_color(self, e=None):
@@ -349,6 +349,12 @@ class MainWindow(tk.Tk):
             self.multiple_generator = multipleGenerator.MultipleGenerator()
             self.multiple_generator.bind('<Destroy>', disable)
             self.multiple_generator_enabled = True
+            self.multiple_generator.methods = list(self.methods.keys())
+            self.multiple_generator.methods = dict(zip(self.multiple_generator.methods,
+                                                  self.multiple_generator.entries,
+                                                  strict=True))
+            print(dict(self.multiple_generator.methods))
+
         if not self.multiple_generator_enabled:
             enable()
         else:
