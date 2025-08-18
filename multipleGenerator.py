@@ -14,7 +14,7 @@ enabled = False
 class MultipleGenerator(Toplevel):
     def __init__(self):
         super().__init__()
-        self.geometry('1000x600')
+        self.geometry('1000x700')
         self.title("Multiple Generator")
         self.methods = None
         self.file = None
@@ -80,7 +80,7 @@ class MultipleGenerator(Toplevel):
         self.pause_button.pack(side=tk.LEFT, anchor=tk.CENTER)
         self.stop_button.pack(side=tk.LEFT, anchor=tk.CENTER)
         self.entries_frame = tk.Frame(self)
-        self.entries_frame.pack()
+        self.entries_frame.pack(pady=(0, 25))
         # Value entry
         tk.Label(self.entries_frame, text="value").pack()
         self.value_entry = tk.Entry(self.entries_frame, state=tk.DISABLED)
@@ -178,12 +178,11 @@ class MultipleGenerator(Toplevel):
                     qr_code.save(full_path, format="PNG")
                     if self.status['value'] < 100:
                         self.status['value'] = index + 1
-                        self.status.update_idletasks()
                         percent = int((index + 1) / len(self.file) * 100)
                         self.status_label.configure(text=f"{percent}% concluído")
-
                 except PermissionError:
                     messagebox.showerror("Erro de Permissão", f"Não foi possível salvar o arquivo:\n{full_path}")
+            self.status.stop()
         else:
             messagebox.showerror("Please insert file and save path", "You didn't filled all the paths")
             self.status.stop()

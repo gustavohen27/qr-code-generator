@@ -167,50 +167,51 @@ def paste_logo_multi(dictionary, qr_code):
 
 
 def value_verifier(value_type, value):
-    if value_type == "value":
-        return value
-    elif value_type == "logo":
-        if path.exists(value):
+    if value:
+        if value_type == "value":
             return value
-    elif value_type == "color":
-        # Implementar
-        pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
-        valid = bool(match(pattern, value))
-        if valid:
-            return value
-        return ""
-    elif value_type == "background":
-        pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
-        valid = bool(match(pattern, value))
-        if valid:
-            return value
-        return ""
-    elif value_type == "logo_color":
-        pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
-        valid = bool(match(pattern, value))
-        if valid:
-            return value
-        return ""
-    elif value_type == "logo_size":
-        if value in [str(i/10) for i in range(1, 10)]:
-            return value
-        return '0.2'
-    elif value_type == "version":
-        if value in [str(i) for i in range(1, 41)]:
-            return value
-        return '1'
-    elif value_type == "box_size":
-        if value in [str(i) for i in range(1, 11)]:
-            return value
-        return '10'
-    elif value_type == "border":
-        if value in [str(i) for i in range(0, 11)]:
-            return value
-        return '4'
-    elif value_type in ["resize_logo", "logo_aspect_ratio"]:
-        if value in [i for i in range(0, 2)]:
-            return value
-        return 1
+        elif value_type == "logo":
+            if path.exists(value):
+                return value
+        elif value_type == "color":
+            # Implementar
+            pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
+            valid = bool(match(pattern, value))
+            if valid:
+                return value
+            return ""
+        elif value_type == "background":
+            pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
+            valid = bool(match(pattern, value))
+            if valid:
+                return value
+            return ""
+        elif value_type == "logo_color":
+            pattern = r'^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
+            valid = bool(match(pattern, value))
+            if valid:
+                return value
+            return ""
+        elif value_type == "logo_size":
+            if value in [str(i/10) for i in range(1, 10)]:
+                return value
+            return '0.2'
+        elif value_type == "version":
+            if value in [str(i) for i in range(1, 41)]:
+                return value
+            return '1'
+        elif value_type == "box_size":
+            if value in [str(i) for i in range(1, 11)]:
+                return value
+            return '10'
+        elif value_type == "border":
+            if value in [str(i) for i in range(0, 11)]:
+                return value
+            return '4'
+        elif value_type in ["resize_logo", "logo_aspect_ratio"]:
+            if value in [i for i in range(0, 2)]:
+                return value
+            return 1
 
 def change_entry(entry, value):
     try:
