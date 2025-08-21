@@ -1,5 +1,6 @@
+import _tkinter
 import tkinter as tk
-from tkinter import ttk, Label, filedialog, messagebox, LabelFrame, Frame
+from tkinter import ttk, Label, filedialog, messagebox, LabelFrame, Frame, TclError
 
 import qrcode
 
@@ -43,7 +44,7 @@ class MainWindow(tk.Tk):
         )
         self.file_menu1.add_command(
             label='Load QR Code',
-            command=lambda: utils.load_qr_code(self),
+            command=self.load_qr_code,
         )
         self.file_menu1.add_command(
             label='Exit',
@@ -76,24 +77,21 @@ class MainWindow(tk.Tk):
         self.options2 = ttk.LabelFrame(self.left_frame, text="Logo options")
         self.options2.pack(expand=tk.TRUE, fill=tk.BOTH)
         # Selected Version
-        self.selected_version = tk.StringVar()
-        self.selected_version.set('1')
+        self.selected_version = tk.StringVar(value='1')
         tk.Label(self.options1, text="Version").pack(pady=(30,0))
         self.version_entry = ttk.Combobox(self.options1,
                                           textvariable=self.selected_version)
         self.version_entry['values'] = [i for i in range(1, 41)]
         self.version_entry.pack()
         # Selected box size
-        self.selected_box_size = tk.StringVar()
-        self.selected_box_size.set('10')
+        self.selected_box_size = tk.StringVar(value='10')
         tk.Label(self.options1, text="Box size").pack()
         self.box_size_entry = ttk.Combobox(self.options1,
                                            textvariable=self.selected_box_size)
         self.box_size_entry['values'] = [i for i in range(1, 11)]
         self.box_size_entry.pack()
         # Selected border
-        self.selected_border = tk.StringVar()
-        self.selected_border.set('4')
+        self.selected_border = tk.StringVar(value='4')
         tk.Label(self.options1, text="Border size").pack()
         self.border_entry = ttk.Combobox(self.options1,
                                          textvariable=self.selected_border)
@@ -103,16 +101,14 @@ class MainWindow(tk.Tk):
         self.logo_options_frame = Frame(self.options2)
         self.logo_options_frame.pack()
         # Logo resize
-        self.resize_var = tk.IntVar()
-        self.resize_var.set(1)
+        self.resize_var = tk.IntVar(value=1)
         self.logo_resize = tk.Checkbutton(self.logo_options_frame,
                                           text="Resize logo",
                                           variable=self.resize_var,
                                           command=self.choose_logo_size)
         self.logo_resize.pack(pady=(50, 0), anchor="w")
         # Logo aspect ratio
-        self.aspect_ratio_var = tk.IntVar()
-        self.aspect_ratio_var.set(1)
+        self.aspect_ratio_var = tk.IntVar(value=1)
         self.logo_ratio = tk.Checkbutton(self.logo_options_frame,
                                          text="Logo aspect ratio",
                                          variable=self.aspect_ratio_var,
@@ -120,8 +116,7 @@ class MainWindow(tk.Tk):
         self.logo_ratio.pack(pady=(0, 10), anchor="w")
         # Logo size
         tk.Label(self.logo_options_frame, text="Logo size").pack()
-        self.logo_size_var = tk.StringVar()
-        self.logo_size_var.set('0.2')
+        self.logo_size_var = tk.StringVar(value='0.2')
         self.logo_size = ttk.Combobox(self.logo_options_frame,
                                       textvariable=self.logo_size_var)
         self.logo_size['values'] = [i / 10 for i in range(1, 11)]
@@ -282,17 +277,25 @@ class MainWindow(tk.Tk):
         self.update_preview()
 
     def choose_image(self, e=None):
-        utils.choose_file("Choose the logo", self.logo_entry)
+        utils.choose_img("Choose the logo", self.logo_entry)
         self.update_preview()
 
     def change_logo_color(self, e=None):
         choose_color("Choose logo color", self.logo_color)
         self.update_preview()
 
+    def load_qr_code(self):
+        utils.load_qr_code(self)
+        self.update_preview()
+
     def show_qr_code(self):
         try:
             for key, value in self.methods.items():
-                new_value = utils.value_verifier(key, value[0].get())
+                try:
+                    raw_value = value[0].get() if value[0].get() is not None else ""
+                except _tkinter.TclError:
+                    raw_value = 1
+                new_value = utils.value_verifier(key, str(raw_value))
                 utils.change_entry(value[0], new_value)
             self.save_qr_code.config(state="normal")
             qr_code = generate_qr_code().convert("RGB")
@@ -365,11 +368,19 @@ class MainWindow(tk.Tk):
 def generate_qr_code():
     print("GERANDO...")
     try:
-        qr_code = qrcode.QRCode(version=main_window.selected_version.get(),
-                                box_size=main_window.selected_box_size.get(),
-                                border=main_window.selected_border.get(),
+        # Verificações seguras para valores numéricos
+        version = main_window.selected_version.get() or 1
+        box_size = main_window.selected_box_size.get() or 10
+        border = main_window.selected_border.get() or 4
+        # Converte para int se necessário
+        version = int(version)
+        box_size = int(box_size)
+        border = int(border)
+        qr_code = qrcode.QRCode(version=version,
+                                box_size=box_size,
+                                border=border,
                                 error_correction=qrcode.constants.ERROR_CORRECT_L)
-        qr_code.add_data(main_window.qr_code_entry.get())
+        qr_code.add_data(main_window.qr_code_entry.get() or "")
         qr_code.make(fit=True)
         qr_code = qr_code.make_image(fill_color=main_window.qr_code_color
                                      .get() or 'black',
@@ -413,7 +424,10 @@ def save_qr_code():
 
 
 if __name__ == "__main__":
-    main_window = MainWindow()
-    # Updates the QR Code preview
-    main_window.update_preview()
-    main_window.mainloop()
+    try:
+        main_window = MainWindow()
+        # Updates the QR Code preview
+        main_window.update_preview()
+        main_window.mainloop()
+    except KeyboardInterrupt:
+        pass
