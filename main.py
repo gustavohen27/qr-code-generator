@@ -335,7 +335,8 @@ class MainWindow(tk.Tk):
             self.configurations_enabled = False
 
         def enable():
-            self.configurations = configurations.Configurations(self.methods)
+            self.configurations = configurations.Configurations(self.methods,
+                                                                self)
             self.configurations.bind('<Destroy>', disable)
             self.configurations_enabled = True
         if not self.configurations_enabled:
