@@ -255,17 +255,17 @@ class MainWindow(tk.Tk):
         self.qr_code_info.lift()
         # Widgets methods
         self.methods = {
-            'value': [self.qr_code_entry],
-            'logo': [self.logo_entry],
-            'color': [self.qr_code_color],
-            'background': [self.bg_color],
-            'logo_color': [self.logo_color],
-            'logo_size': [self.logo_size_var],
-            'version': [self.version_entry],
-            'box_size': [self.box_size_entry],
-            'border': [self.border_entry],
-            'resize_logo': [self.resize_var],
-            'logo_aspect_ratio': [self.aspect_ratio_var]
+            'value': [self.qr_code_entry, ""],
+            'logo': [self.logo_entry, ""],
+            'color': [self.qr_code_color, ""],
+            'background': [self.bg_color, ""],
+            'logo_color': [self.logo_color, ""],
+            'logo_size': [self.logo_size_var, "0.2"],
+            'version': [self.version_entry, "1"],
+            'box_size': [self.box_size_entry, "10"],
+            'border': [self.border_entry, "4"],
+            'resize_logo': [self.resize_var, "1"],
+            'logo_aspect_ratio': [self.aspect_ratio_var, "1"]
         }
 
     def change_qr_code_color(self, e=None):
@@ -335,7 +335,7 @@ class MainWindow(tk.Tk):
             self.configurations_enabled = False
 
         def enable():
-            self.configurations = configurations.Configurations()
+            self.configurations = configurations.Configurations(self.methods)
             self.configurations.bind('<Destroy>', disable)
             self.configurations_enabled = True
         if not self.configurations_enabled:
