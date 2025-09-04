@@ -4,7 +4,7 @@ Um aplicativo desktop em Python para gerar QR Codes personalizados com suporte a
 
 ## 📸 Captura de Tela
 
-![Interface do Gerador de QR Code](caminho/para/imagem.png)
+![Interface do Gerador de QR Code](generator_preview.png)
 
 ## 🚀 Funcionalidades
 
