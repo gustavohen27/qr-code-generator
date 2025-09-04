@@ -1,20 +1,19 @@
-import _tkinter
+"""Main qr code generator which have the ability to generate and
+save qr codes."""
 import tkinter as tk
-from tkinter import ttk, Label, filedialog, messagebox, LabelFrame, Frame, TclError
-
+from tkinter import ttk, Label, filedialog, messagebox, LabelFrame, Frame
+import _tkinter
 import qrcode
-
+from PIL import Image, ImageTk
 import configurations
 import multipleGenerator
 import utils
 from utils import choose_color
-from PIL import Image, ImageTk
 
 
-# Terminar o carregamento do QR Code
-# Colocar opções para a Logo
-# Adicionar botão para defaults
 class MainWindow(tk.Tk):
+    """Main window widget which opens the main generator
+    """
     def __init__(self):
         super().__init__()
         self.geometry('1000x500')
@@ -54,7 +53,7 @@ class MainWindow(tk.Tk):
                                   tearoff=0)
         self.file_menu2.add_command(
             label='Open configurations',
-            command=lambda: self.open_configurations(),  # Adicionar comando
+            command=self.open_configurations,  # Adicionar comando
         )
         self.file_menu2.add_command(
             label='Open multiple generator',
@@ -81,21 +80,21 @@ class MainWindow(tk.Tk):
         tk.Label(self.options1, text="Version").pack(pady=(30,0))
         self.version_entry = ttk.Combobox(self.options1,
                                           textvariable=self.selected_version)
-        self.version_entry['values'] = [i for i in range(1, 41)]
+        self.version_entry['values'] = list(range(1, 41))
         self.version_entry.pack()
         # Selected box size
         self.selected_box_size = tk.StringVar(value='10')
         tk.Label(self.options1, text="Box size").pack()
         self.box_size_entry = ttk.Combobox(self.options1,
                                            textvariable=self.selected_box_size)
-        self.box_size_entry['values'] = [i for i in range(1, 11)]
+        self.box_size_entry['values'] = list(range(1, 11))
         self.box_size_entry.pack()
         # Selected border
         self.selected_border = tk.StringVar(value='4')
         tk.Label(self.options1, text="Border size").pack()
         self.border_entry = ttk.Combobox(self.options1,
                                          textvariable=self.selected_border)
-        self.border_entry['values'] = [i for i in range(0, 11)]
+        self.border_entry['values'] = list(range(0, 11))
         self.border_entry.pack()
         # Logo options frame
         self.logo_options_frame = Frame(self.options2)
@@ -141,7 +140,7 @@ class MainWindow(tk.Tk):
                                       command=save_qr_code)
         self.load_qr_code = tk.Button(self.center_buttons_frame,
                                       text='Load QR Code',
-                                      command=utils.load_qr_code)
+                                      command=self.load_qr_code)
         self.qr_code_entry = tk.Entry(self.center_buttons_frame, width=60)
         self.center_buttons_frame.columnconfigure(0, weight=1)
         self.center_buttons_frame.columnconfigure(1, weight=1)
@@ -244,7 +243,6 @@ class MainWindow(tk.Tk):
         self.center_frame.pack_propagate(False)
         self.right_frame.pack_propagate(False)
         self.qr_code_entry.bind("<KeyPress>", self.update_preview)
-        entries = self.colors_frame
         options_children = (self.options1.winfo_children()
                             + self.options2.winfo_children()
                             + self.logo_options_frame.winfo_children())
@@ -269,26 +267,37 @@ class MainWindow(tk.Tk):
         }
 
     def change_qr_code_color(self, e=None):
+        """Uses the function "choose_color", changes qr code color and
+         updates the preview."""
         choose_color("Choose QR Code color", self.qr_code_color)
         self.update_preview()
 
     def change_bg_color(self, e=None):
+        """Uses the function "choose_color", changes qr code background color and
+         updates the preview."""
         choose_color("Choose background color", self.bg_color)
         self.update_preview()
 
     def choose_image(self, e=None):
+        """Uses the function "utils.choose_img", chooses qr code logo and
+         updates the preview."""
         utils.choose_img("Choose the logo", self.logo_entry)
         self.update_preview()
 
     def change_logo_color(self, e=None):
+        """Uses the function "choose_color", changes qr code logo color and
+        updates the preview."""
         choose_color("Choose logo color", self.logo_color)
         self.update_preview()
 
     def load_qr_code(self):
+        """Uses the function "utils.load_qr_code" and updates the preview."""
         utils.load_qr_code(self)
         self.update_preview()
 
     def show_qr_code(self):
+        """Verifies all entries widgets values, generates a qr code and updates
+        the preview."""
         try:
             for key, value in self.methods.items():
                 try:
@@ -301,7 +310,7 @@ class MainWindow(tk.Tk):
             qr_code = generate_qr_code().convert("RGB")
             size = f'{qr_code.size[0]}x{qr_code.size[1]}'
             self.qr_code_info.config(text=f'Size: {size}')
-            utils.paste_logo(main_window, qr_code)
+            utils.paste_logo(main_window or None, qr_code)
             if qr_code.size[0] > 250:
                 qr_code = qr_code.resize((250, 250))
             qr_code = ImageTk.PhotoImage(qr_code)
@@ -315,15 +324,20 @@ class MainWindow(tk.Tk):
             self.save_qr_code.config(state=tk.DISABLED)
 
     def update_preview(self, e=None):
+        """Uses "show_qr_code" function."""
         self.show_qr_code()
 
     def choose_logo_size(self):
+        """Uses "update_preview" to update the preview."""
         self.update_preview()
 
     def choose_logo_aspect_ratio(self):
+        """Uses "update_preview" to update the preview."""
         self.update_preview()
 
     def delete_entry(self, entry):
+        """Deletes the specified entry value, changes the entry to the original
+        state and update the preview."""
         original_state = entry.cget('state')
         entry.config(state=tk.NORMAL)
         entry.delete(0, tk.END)
@@ -331,6 +345,8 @@ class MainWindow(tk.Tk):
         self.update_preview()
 
     def open_configurations(self):
+        """Opens Configurations window and binds "<Destroy>" event
+         to the object."""
         def disable(e):
             self.configurations_enabled = False
 
@@ -346,6 +362,8 @@ class MainWindow(tk.Tk):
             enable()
 
     def open_multiple_generator(self):
+        """Opens Multiple Generator window and binds "<Destroy>" event
+        to the object."""
         def disable(e):
             self.multiple_generator_enabled = False
 
@@ -367,7 +385,8 @@ class MainWindow(tk.Tk):
 
 
 def generate_qr_code():
-    print("GERANDO...")
+    """Generates and returns a qr code with all verified values or returns
+    none instead."""
     try:
         # Verificações seguras para valores numéricos
         version = main_window.selected_version.get() or 1
@@ -390,11 +409,14 @@ def generate_qr_code():
 
         return qr_code
     except ValueError:
-        messagebox.showerror("There was an error", "Please review the values while generating the QR Code")
-
+        messagebox.showerror("There was an error",
+                             "Please review the values while generating the QR \
+                             Code")
+        return None
 
 
 def save_qr_code():
+    """Saves a qr code with all specified values"""
     path = filedialog.asksaveasfilename(
         defaultextension='.png',
         filetypes=[
@@ -419,10 +441,6 @@ def save_qr_code():
                                                 or 'white').convert("RGBA")
         utils.paste_logo(main_window, qr_code)
         qr_code.save(path, format="PNG")
-        print(f"QR CODE GERADO COM SUCESSO! SALVO EM: {path}")
-    else:
-        return None
-
 
 if __name__ == "__main__":
     try:

@@ -1,15 +1,18 @@
-import os.path
-import tkinter as tk
-from re import match
-from tkinter import colorchooser, filedialog, messagebox, ttk
-from PIL import Image, ImageOps
+"""Utilities mode which has all the necessary functions for the program work."""
 from csv import DictReader
 from os import path
 import re
+import os
+import tkinter as tk
+from re import match
+from tkinter import colorchooser, filedialog, messagebox, ttk
+
+from PIL import Image, ImageOps
 import pandas
 
 
 def choose_color(prompt="Choose the color", entry=None):
+    """Asks for a color, updates the specified entry and returns the color text."""
     cor = colorchooser.askcolor(title=prompt)[1]
     if cor:
         if entry:
@@ -18,9 +21,10 @@ def choose_color(prompt="Choose the color", entry=None):
             entry.insert(0, str(cor))
             entry.config(state=tk.DISABLED)
         return cor
-
+    return None
 
 def choose_file(prompt="Choose the file", entry=None):
+    """Ask for a file, updates the specified entry and returns the file path."""
     file = filedialog.askopenfilename(title=prompt)
     if file:
         if entry:
@@ -29,9 +33,11 @@ def choose_file(prompt="Choose the file", entry=None):
             entry.insert(0, str(file))
             entry.config(state=tk.DISABLED)
         return file
-
+    return None
 
 def choose_img(prompt="Choose the file", entry=None):
+    """Chooses the image file, updates the specified entry and returns the
+    file path."""
     file = filedialog.askopenfilename(
         defaultextension='.csv',
         filetypes=[
@@ -48,9 +54,10 @@ def choose_img(prompt="Choose the file", entry=None):
             entry.insert(0, str(file))
             entry.config(state=tk.DISABLED)
         return file
-
+    return None
 
 def load_qr_code(obj):
+    """Opens a csv file and loads the specified values into the entries."""
     file_path = filedialog.askopenfilename(
         defaultextension='.csv',
         filetypes=[
@@ -61,23 +68,22 @@ def load_qr_code(obj):
     )
     if file_path:
         name, extension = os.path.splitext(file_path)
-        data = None
         if extension == '.xlsx':
             data = pandas.read_excel(file_path, engine="openpyxl")
             data = data.to_dict(orient="records")
             print(data)
         else:
-            with open(file_path, mode='r') as file:
+            with open(file_path, mode='r', encoding="utf-8") as file:
                 print(file.readlines())
                 file.seek(0)
                 if len(file.readlines()) > 2:
                     messagebox.showerror("File too long",
-                                         "Only 1 QR Code can be loaded by time, instead use the multi generator")
+                                         "Only 1 QR Code can be loaded by time, \
+                                         instead use the multi generator")
                     return None
-                else:
-                    file.seek(0)
-                    reader = DictReader(file)
-                    data = [row for row in reader]  # Converte para um dicionário
+                file.seek(0)
+                reader = DictReader(file)
+                data = list(reader)  # Converte para um dicionário
         for key, entry in obj.methods.items():
             value = data[0].get(key, "")
             if value:
@@ -94,6 +100,8 @@ def load_qr_code(obj):
 
 
 def load_qr_codes(obj, entry=None):
+    """Opens a csv file loads the specified values into the entries and
+    returns the data."""
     file_path = filedialog.askopenfilename(
         defaultextension='.csv',
         filetypes=[
@@ -109,14 +117,13 @@ def load_qr_codes(obj, entry=None):
             entry.insert(0, str(file_path))
             entry.config(state=tk.DISABLED)
         name, extension = os.path.splitext(file_path)
-        data = None
         if extension == '.xlsx':
             data = pandas.read_excel(file_path, engine="openpyxl")
             data = data.to_dict(orient="records")
         else:
-            with open(file_path, mode='r') as file:
+            with open(file_path, mode='r', encoding="utf-8") as file:
                 reader = DictReader(file)
-                data = [row for row in reader]  # Converte para um dicionário
+                data = list(reader)  # Converte para um dicionário
         for key, entry in obj.methods.items():
             value = value_verifier(key, str(data[0].get(key, "")))
             if isinstance(entry[0], tk.Entry):
@@ -132,6 +139,7 @@ def load_qr_codes(obj, entry=None):
 
 
 def paste_logo(obj, qr_code):
+    """Pastes the logo file into the qr code and returns the new image."""
     qr_width, qr_height = qr_code.size
     logo_size = int(qr_width * float(obj.logo_size_var.get()))
 
@@ -142,7 +150,6 @@ def paste_logo(obj, qr_code):
 
     logo_width, logo_height = logo.size
 
-    # Redimensiona a logo
     if obj.aspect_ratio_var.get() == 1:
         if obj.resize_var.get() == 1:
             logo = logo.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
@@ -151,7 +158,6 @@ def paste_logo(obj, qr_code):
             new_size = (int(logo_width * scale), int(logo_height * scale))
             logo = logo.resize(new_size, Image.Resampling.LANCZOS)
     else:
-        # Mantém tamanho original
         pass
 
     # Recalcula posição com base no tamanho real da logo
@@ -162,8 +168,8 @@ def paste_logo(obj, qr_code):
     # Muda a cor da logo
     if obj.logo_color.get():
         logo = (ImageOps.colorize(ImageOps.grayscale(logo),
-                                  black="black",
-                                  white=obj.logo_color.get())
+                                  black=obj.logo_color.get(),
+                                  white='white')
                 .convert("RGBA"))
     # Cola com máscara para preservar transparência
     qr_code.paste(logo, pos, mask=logo)
@@ -172,7 +178,7 @@ def paste_logo(obj, qr_code):
 
 
 def paste_logo_multi(dictionary, qr_code):
-    # MODIFICAR
+    """Pastes the logo file into the qr code and returns the new image."""
     qr_width, qr_height = qr_code.size
     logo_size = int(qr_width * float(dictionary['logo_size']))
 
@@ -213,6 +219,7 @@ def paste_logo_multi(dictionary, qr_code):
 
 
 def value_verifier(value_type, value):
+    """Verifies a value with the specified type."""
     value = str(value) if value is not None else ""
 
     if value_type == "value":
@@ -238,6 +245,7 @@ def value_verifier(value_type, value):
 
 
 def change_entry(entry, value):
+    """Changes an entry object with the specified value."""
     try:
         if isinstance(entry, tk.Entry):
             original_state = entry.cget('state')
@@ -249,9 +257,10 @@ def change_entry(entry, value):
             entry.set(value)
     except ValueError:
         return None
-
+    return None
 
 def choose_dir(prompt="Choose the directory", entry=None):
+    """Chooses a directory and changes an entry value."""
     file = filedialog.askdirectory(title=prompt)
     if file:
         if entry:
@@ -260,9 +269,10 @@ def choose_dir(prompt="Choose the directory", entry=None):
             entry.insert(0, str(file))
             entry.config(state=tk.DISABLED)
         return file
-
+    return None
 
 def clear_file_name(texto, index=None):
+    """Removes invalid file names and returns the new file name."""
     # Remove caracteres inválidos para nomes de arquivos
     texto_limpo = re.sub(r'[\\/*?:"<>|]', "", texto)
     texto_limpo = texto_limpo.strip().replace(" ", "_")

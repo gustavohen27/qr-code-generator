@@ -1,11 +1,12 @@
+"""Configurations object which have the ability to configure the main generator."""
 import tkinter as tk
 from tkinter import Toplevel, messagebox
 
-import main
 import utils
 
 
 class Configurations(Toplevel):
+    """Opens configurations window."""
     def __init__(self, methods, obj):
         super().__init__()
         self.geometry('500x250')
@@ -21,12 +22,10 @@ class Configurations(Toplevel):
         self.reset_button.pack(pady=100)
 
     def reset_to_default(self):
+        """Resets all qr code generator entries to the default."""
         response = messagebox.askyesno("Reset to default?", "Are you sure do you wa\
 nt to reset all values to default?")
         if self.methods and response:
-            for key, value in self.methods.items():
+            for value in self.methods.values():
                 utils.change_entry(value[0], value[1])
             self.main_window.update_preview()
-
-
-        # Implementar

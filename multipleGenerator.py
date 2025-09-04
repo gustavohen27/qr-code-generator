@@ -1,3 +1,5 @@
+"""Multiple qr code generator which has the ability to generate and save
+multiple qr codes files."""
 import os
 from tkinter import Toplevel, messagebox
 import tkinter as tk
@@ -10,15 +12,14 @@ import utils
 window = None
 enabled = False
 
-# Implementar o gerador
 class MultipleGenerator(Toplevel):
+    """Multiple generator which has the ability to generate multiple qr codes."""
     def __init__(self):
         super().__init__()
         self.geometry('1000x700')
         self.title("Multiple Generator")
         self.methods = None
         self.file = None
-        # Implementar
         self.status_frame = ttk.Frame(self)
         self.status_frame.pack(expand=True, fill=tk.X)
         tk.Label(self.status_frame, text="QR codes file").pack()
@@ -65,20 +66,14 @@ class MultipleGenerator(Toplevel):
             text='Start',
             command=self.start_generation
         )
-        self.pause_button = ttk.Button(
-            self.control_frame,
-            text='Pause',
-            command=self.pause_generation
-        )
         self.stop_button = ttk.Button(
             self.control_frame,
             text='Stop',
             command=self.stop_generation
         )
         self.control_frame.pack(pady=20)
-        self.start_button.pack(side=tk.LEFT, anchor=tk.CENTER)
-        self.pause_button.pack(side=tk.LEFT, anchor=tk.CENTER)
-        self.stop_button.pack(side=tk.LEFT, anchor=tk.CENTER)
+        self.start_button.pack(side=tk.LEFT, anchor=tk.CENTER, padx=10)
+        self.stop_button.pack(side=tk.LEFT, anchor=tk.CENTER, padx=10)
         self.entries_frame = tk.Frame(self)
         self.entries_frame.pack(pady=(0, 25))
         # Value entry
@@ -133,16 +128,19 @@ class MultipleGenerator(Toplevel):
                 widget.configure(width=50)
 
     def choose_file(self, e):
+        """Chooses a file and loads all the specified qr codes values."""
         self.file = utils.load_qr_codes(self, self.file_entry)
         print(self.file)
         self.status["maximum"] = len(self.file)
         self.status["value"] = 0
 
     def choose_path_to_save(self, e):
+        """Chooses the path to save generated qr codes."""
         utils.choose_dir('Choose ".csv" or ".xslx" file',
                           self.save_path)
 
     def start_generation(self):
+        """Starts qr codes generation with all the specified values."""
         self.status.start()
         if self.file and self.save_path.get():
             for index, line in enumerate(self.file):
@@ -181,14 +179,15 @@ class MultipleGenerator(Toplevel):
                         percent = int((index + 1) / len(self.file) * 100)
                         self.status_label.configure(text=f"{percent}% concluído")
                 except PermissionError:
-                    messagebox.showerror("Erro de Permissão", f"Não foi possível salvar o arquivo:\n{full_path}")
+                    messagebox.showerror("Erro de Permissão",
+                                         f"Não foi possível salvar o\
+                                          arquivo:\n{full_path}")
             self.status.stop()
         else:
-            messagebox.showerror("Please insert file and save path", "You didn't filled all the paths")
+            messagebox.showerror("Please insert file and save path",
+                                 "You didn't filled all the paths")
             self.status.stop()
 
-    def pause_generation(self):
-        pass
-
     def stop_generation(self):
+        """Stops the qr code generation."""
         self.status.stop()
