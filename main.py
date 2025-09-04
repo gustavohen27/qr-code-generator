@@ -144,7 +144,7 @@ class MainWindow(tk.Tk):
         self.qr_code_entry = tk.Entry(self.center_buttons_frame, width=60)
         self.center_buttons_frame.columnconfigure(0, weight=1)
         self.center_buttons_frame.columnconfigure(1, weight=1)
-        self.qr_code_entry.pack(pady=25)
+        self.qr_code_entry.pack(pady=25, padx=10)
         self.save_qr_code.pack(ipadx=20, pady=(0, 25))
         # self.load_qr_code.grid(row=1, column=1, ipadx=20)
         # Right frame widgets

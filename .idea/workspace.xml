@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Fixed configurations update issue">
+    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Code optimization and docstrings.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configurations.py" beforeDir="false" afterPath="$PROJECT_DIR$/configurations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multipleGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/multipleGenerator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teste.csv" beforeDir="false" afterPath="$PROJECT_DIR$/teste.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,6 +132,7 @@
     <MESSAGE value="Added xslx file readers" />
     <MESSAGE value="Added configurations" />
     <MESSAGE value="Fixed configurations update issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed configurations update issue" />
+    <MESSAGE value="Code optimization and docstrings." />
+    <option name="LAST_COMMIT_MESSAGE" value="Code optimization and docstrings." />
   </component>
 </project>
