@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Code optimization and docstrings.">
+    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Fixed the preview.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teste.csv" beforeDir="false" afterPath="$PROJECT_DIR$/teste.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,6 +131,10 @@
     <MESSAGE value="Added configurations" />
     <MESSAGE value="Fixed configurations update issue" />
     <MESSAGE value="Code optimization and docstrings." />
-    <option name="LAST_COMMIT_MESSAGE" value="Code optimization and docstrings." />
+    <MESSAGE value="Fixed visual and added generator preview." />
+    <MESSAGE value="Added new generator preview." />
+    <MESSAGE value="Fixed preview." />
+    <MESSAGE value="Fixed the preview." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed the preview." />
   </component>
 </project>

@@ -12,8 +12,10 @@ import utils
 window = None
 enabled = False
 
+
 class MultipleGenerator(Toplevel):
     """Multiple generator which has the ability to generate multiple qr codes."""
+
     def __init__(self):
         super().__init__()
         self.geometry('1000x700')
@@ -29,29 +31,29 @@ class MultipleGenerator(Toplevel):
                                                   .open('file-icon.png')
                                                   .resize((20, 20)))
         self.file_button = tk.Label(self.status_frame,
-                                     image=self.choose_file_img,
-                                     padx=10)
+                                    image=self.choose_file_img,
+                                    padx=10)
         self.file_button.bind('<Button-1>',
-                               func=lambda e: self
-                               .choose_file
-                               (self.file_entry))
+                              func=lambda e: self
+                              .choose_file
+                              (self.file_entry))
         self.file_button.place_configure(anchor="center",
-                                          in_=self.file_entry,
-                                          relx=1,
-                                          rely=0.44)
+                                         in_=self.file_entry,
+                                         relx=1,
+                                         rely=0.44)
         tk.Label(self.status_frame, text="Save path").pack()
         self.save_path = tk.Entry(self.status_frame, width=50, state=tk.DISABLED, bg='black')
         self.save_path_button = tk.Label(self.status_frame,
-                                    image=self.choose_file_img,
-                                    padx=10)
+                                         image=self.choose_file_img,
+                                         padx=10)
         self.save_path_button.bind('<Button-1>',
-                              func=lambda e: self
-                              .choose_path_to_save
-                              (self.save_path))
+                                   func=lambda e: self
+                                   .choose_path_to_save
+                                   (self.save_path))
         self.save_path_button.place_configure(anchor="center",
-                                         in_=self.save_path,
-                                         relx=1,
-                                         rely=0.44)
+                                              in_=self.save_path,
+                                              relx=1,
+                                              rely=0.44)
         self.save_path.pack()
         tk.Label(self, text="Status").pack()
         self.status = ttk.Progressbar(self,
@@ -137,7 +139,7 @@ class MultipleGenerator(Toplevel):
     def choose_path_to_save(self, e):
         """Chooses the path to save generated qr codes."""
         utils.choose_dir('Choose ".csv" or ".xslx" file',
-                          self.save_path)
+                         self.save_path)
 
     def start_generation(self):
         """Starts qr codes generation with all the specified values."""

@@ -23,6 +23,7 @@ def choose_color(prompt="Choose the color", entry=None):
         return cor
     return None
 
+
 def choose_file(prompt="Choose the file", entry=None):
     """Ask for a file, updates the specified entry and returns the file path."""
     file = filedialog.askopenfilename(title=prompt)
@@ -34,6 +35,7 @@ def choose_file(prompt="Choose the file", entry=None):
             entry.config(state=tk.DISABLED)
         return file
     return None
+
 
 def choose_img(prompt="Choose the file", entry=None):
     """Chooses the image file, updates the specified entry and returns the
@@ -55,6 +57,7 @@ def choose_img(prompt="Choose the file", entry=None):
             entry.config(state=tk.DISABLED)
         return file
     return None
+
 
 def load_qr_code(obj):
     """Opens a csv file and loads the specified values into the entries."""
@@ -259,6 +262,7 @@ def change_entry(entry, value):
         return None
     return None
 
+
 def choose_dir(prompt="Choose the directory", entry=None):
     """Chooses a directory and changes an entry value."""
     file = filedialog.askdirectory(title=prompt)
@@ -270,6 +274,7 @@ def choose_dir(prompt="Choose the directory", entry=None):
             entry.config(state=tk.DISABLED)
         return file
     return None
+
 
 def clear_file_name(texto, index=None):
     """Removes invalid file names and returns the new file name."""

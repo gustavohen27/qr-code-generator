@@ -14,6 +14,7 @@ from utils import choose_color
 class MainWindow(tk.Tk):
     """Main window widget which opens the main generator
     """
+
     def __init__(self):
         super().__init__()
         self.geometry('1000x500')
@@ -36,7 +37,7 @@ class MainWindow(tk.Tk):
         self.menu1 = tk.Menu(self)
         self.config(menu=self.menu1)
         self.file_menu1 = tk.Menu(self.menu1,
-                                 tearoff=0)
+                                  tearoff=0)
         self.file_menu1.add_command(
             label='Save QR Code',
             command=save_qr_code,
@@ -77,7 +78,7 @@ class MainWindow(tk.Tk):
         self.options2.pack(expand=tk.TRUE, fill=tk.BOTH)
         # Selected Version
         self.selected_version = tk.StringVar(value='1')
-        tk.Label(self.options1, text="Version").pack(pady=(30,0))
+        tk.Label(self.options1, text="Version").pack(pady=(30, 0))
         self.version_entry = ttk.Combobox(self.options1,
                                           textvariable=self.selected_version)
         self.version_entry['values'] = list(range(1, 41))
@@ -168,16 +169,16 @@ class MainWindow(tk.Tk):
                                                   rely=1.03)
 
         self.qr_code_color_deleter = tk.Label(self.colors_frame,
-                                             image=self.delete_entry_img,
-                                             padx=10)
+                                              image=self.delete_entry_img,
+                                              padx=10)
         self.qr_code_color_deleter.bind('<Button-1>',
-                                       func=lambda e: self
+                                        func=lambda e: self
                                         .delete_entry
-                                       (self.qr_code_color))
+                                        (self.qr_code_color))
         self.qr_code_color_deleter.place_configure(anchor="center",
-                                                  in_=self.qr_code_color_picker,
-                                                  relx=2.1,
-                                                  rely=0.44)
+                                                   in_=self.qr_code_color_picker,
+                                                   relx=2.1,
+                                                   rely=0.44)
         tk.Label(self.colors_frame, text="Background color").pack(pady=10)
         self.bg_color = tk.Entry(self.colors_frame, state=tk.DISABLED)
         self.bg_color.pack()
@@ -187,16 +188,16 @@ class MainWindow(tk.Tk):
         self.bg_color_picker.place_configure(anchor="sw", in_=self.bg_color,
                                              relx=1.1, rely=1.03)
         self.bg_color_deleter = tk.Label(self.colors_frame,
-                                              image=self.delete_entry_img,
-                                              padx=10)
+                                         image=self.delete_entry_img,
+                                         padx=10)
         self.bg_color_deleter.bind('<Button-1>',
-                                        func=lambda e: self
-                                        .delete_entry
-                                        (self.bg_color))
+                                   func=lambda e: self
+                                   .delete_entry
+                                   (self.bg_color))
         self.bg_color_deleter.place_configure(anchor="center",
-                                                   in_=self.bg_color_picker,
-                                                   relx=2.1,
-                                                   rely=0.44)
+                                              in_=self.bg_color_picker,
+                                              relx=2.1,
+                                              rely=0.44)
         # Logo widgets
         self.logo_frame = LabelFrame(self.right_frame, text="Logo")
         self.logo_frame.pack(side=tk.TOP, expand=True, fill=tk.BOTH)
@@ -209,16 +210,16 @@ class MainWindow(tk.Tk):
         self.choose_logo.place_configure(anchor="sw", in_=self.logo_entry,
                                          relx=1.1, rely=1.04)
         self.logo_deleter = tk.Label(self.logo_frame,
-                                           image=self.delete_entry_img,
-                                           padx=10)
+                                     image=self.delete_entry_img,
+                                     padx=10)
         self.logo_deleter.bind('<Button-1>',
-                                     func=lambda e: self
-                                     .delete_entry
-                                     (self.logo_entry))
+                               func=lambda e: self
+                               .delete_entry
+                               (self.logo_entry))
         self.logo_deleter.place_configure(anchor="center",
-                                                in_=self.choose_logo,
-                                                relx=1.9,
-                                                rely=0.44)
+                                          in_=self.choose_logo,
+                                          relx=1.9,
+                                          rely=0.44)
         # Logo color
         tk.Label(self.logo_frame, text="Logo color").pack(pady=10)
         self.logo_color = tk.Entry(self.logo_frame, width=30, state=tk.DISABLED)
@@ -228,16 +229,16 @@ class MainWindow(tk.Tk):
         self.logo_color_picker.place_configure(anchor="sw", in_=self.logo_color,
                                                relx=1.1, rely=1.04)
         self.logo_color_deleter = tk.Label(self.logo_frame,
-                                         image=self.delete_entry_img,
-                                         padx=10)
+                                           image=self.delete_entry_img,
+                                           padx=10)
         self.logo_color_deleter.bind('<Button-1>',
-                                   func=lambda e: self
-                                   .delete_entry
-                                   (self.logo_color))
+                                     func=lambda e: self
+                                     .delete_entry
+                                     (self.logo_color))
         self.logo_color_deleter.place_configure(anchor="center",
-                                              in_=self.logo_color_picker,
-                                              relx=2.1,
-                                              rely=0.44)
+                                                in_=self.logo_color_picker,
+                                                relx=2.1,
+                                                rely=0.44)
         # Others
         self.left_frame.pack_propagate(False)
         self.center_frame.pack_propagate(False)
@@ -318,8 +319,8 @@ class MainWindow(tk.Tk):
             self.qr_code_preview.image = qr_code
         except (AttributeError, TypeError):
             warning_img = ImageTk.PhotoImage(Image
-                                                      .open('warning-icon.png')
-                                                      .resize((100, 100)))
+                                             .open('warning-icon.png')
+                                             .resize((100, 100)))
             self.qr_code_preview.config(image=warning_img)
             self.save_qr_code.config(state=tk.DISABLED)
 
@@ -347,6 +348,7 @@ class MainWindow(tk.Tk):
     def open_configurations(self):
         """Opens Configurations window and binds "<Destroy>" event
          to the object."""
+
         def disable(e):
             self.configurations_enabled = False
 
@@ -355,6 +357,7 @@ class MainWindow(tk.Tk):
                                                                 self)
             self.configurations.bind('<Destroy>', disable)
             self.configurations_enabled = True
+
         if not self.configurations_enabled:
             enable()
         else:
@@ -364,6 +367,7 @@ class MainWindow(tk.Tk):
     def open_multiple_generator(self):
         """Opens Multiple Generator window and binds "<Destroy>" event
         to the object."""
+
         def disable(e):
             self.multiple_generator_enabled = False
 
@@ -373,8 +377,8 @@ class MainWindow(tk.Tk):
             self.multiple_generator_enabled = True
             self.multiple_generator.methods = list(self.methods.keys())
             self.multiple_generator.methods = dict(zip(self.multiple_generator.methods,
-                                                  self.multiple_generator.entries,
-                                                  strict=True))
+                                                       self.multiple_generator.entries,
+                                                       strict=True))
             print(dict(self.multiple_generator.methods))
 
         if not self.multiple_generator_enabled:
@@ -441,6 +445,7 @@ def save_qr_code():
                                                 or 'white').convert("RGBA")
         utils.paste_logo(main_window, qr_code)
         qr_code.save(path, format="PNG")
+
 
 if __name__ == "__main__":
     try:

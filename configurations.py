@@ -7,6 +7,7 @@ import utils
 
 class Configurations(Toplevel):
     """Opens configurations window."""
+
     def __init__(self, methods, obj):
         super().__init__()
         self.geometry('500x250')
