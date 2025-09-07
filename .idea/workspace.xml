@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Fixed the preview.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Code cleanup.">
+      <change beforePath="$PROJECT_DIR$/teste.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/teste_xslx.xlsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -135,6 +135,7 @@
     <MESSAGE value="Added new generator preview." />
     <MESSAGE value="Fixed preview." />
     <MESSAGE value="Fixed the preview." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed the preview." />
+    <MESSAGE value="Code cleanup." />
+    <option name="LAST_COMMIT_MESSAGE" value="Code cleanup." />
   </component>
 </project>
