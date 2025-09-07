@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Code cleanup.">
-      <change beforePath="$PROJECT_DIR$/teste.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/teste_xslx.xlsx" beforeDir="false" />
+    <list default="true" id="284e9c9a-e617-41d5-9aa0-dfe404f57610" name="Changes" comment="Added &quot;.exe&quot; file">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_09_2025_17_34_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_04_09_2025_17_34__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_09_2025_17_13_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_09_2025_17_13__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_09_2025_17_40_[Changes]/shelved.patch" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +139,7 @@
     <MESSAGE value="Fixed preview." />
     <MESSAGE value="Fixed the preview." />
     <MESSAGE value="Code cleanup." />
-    <option name="LAST_COMMIT_MESSAGE" value="Code cleanup." />
+    <MESSAGE value="Added &quot;.exe&quot; file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added &quot;.exe&quot; file" />
   </component>
 </project>
