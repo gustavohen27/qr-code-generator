@@ -145,7 +145,8 @@ class MainWindow(tk.Tk):
         self.qr_code_entry = tk.Entry(self.center_buttons_frame, width=60)
         self.center_buttons_frame.columnconfigure(0, weight=1)
         self.center_buttons_frame.columnconfigure(1, weight=1)
-        self.qr_code_entry.pack(pady=25, padx=10)
+        self.qr_code_entry.pack(pady=(25, 0), padx=10)
+        tk.Label(self.center_buttons_frame, text="Press Enter to update").pack(pady=25)
         self.save_qr_code.pack(ipadx=20, pady=(0, 25))
         # self.load_qr_code.grid(row=1, column=1, ipadx=20)
         # Right frame widgets
@@ -243,7 +244,7 @@ class MainWindow(tk.Tk):
         self.left_frame.pack_propagate(False)
         self.center_frame.pack_propagate(False)
         self.right_frame.pack_propagate(False)
-        self.qr_code_entry.bind("<KeyPress>", self.update_preview)
+        self.qr_code_entry.bind("<Return>", self.show_qr_code)
         options_children = (self.options1.winfo_children()
                             + self.options2.winfo_children()
                             + self.logo_options_frame.winfo_children())
@@ -296,7 +297,7 @@ class MainWindow(tk.Tk):
         utils.load_qr_code(self)
         self.update_preview()
 
-    def show_qr_code(self):
+    def show_qr_code(self, e=None):
         """Verifies all entries widgets values, generates a qr code and updates
         the preview."""
         try:

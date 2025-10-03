@@ -224,7 +224,6 @@ def paste_logo_multi(dictionary, qr_code):
 def value_verifier(value_type, value):
     """Verifies a value with the specified type."""
     value = str(value) if value is not None else ""
-
     if value_type == "value":
         return value or ""
     elif value_type == "logo":
