@@ -48,9 +48,8 @@ git clone [https://github.com/gustavohen27/qr-code-generator.git](https://github
 
 ## 📄 Licença & Copyright
 
-Este projeto está disponível para visualização como parte do meu portfólio profissional. 
-
-© **Gustavo Henrique Silva de Souza**, 2026. Todos os direitos reservados.
-
----
-Desenvolvido por [gustavohen27](https://www.linkedin.com/in/gustavosouza-dev/) 🚀
+> **Copyright © 2026 Gustavo Henrique.**
+> 
+> Todos os direitos reservados. Este software foi desenvolvido como parte de um portfólio profissional. O código-fonte está disponível apenas para fins de visualização e estudo técnico.
+> 
+> **Não é permitida a redistribuição, venda ou uso comercial sem autorização prévia.** Para propostas ou licenciamento, entre em contato via [LinkedIn](https://www.linkedin.com/in/gustavohen27/).
