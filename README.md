@@ -1,8 +1,8 @@
 # 🎯 Gerador de QR Code Customizado
 
-![GitHub language count](https://img.shields.io/github/languages/count/seu-usuario/nome-do-repositorio?style=for-the-badge)
-![GitHub repo size](https://img.shields.io/github/repo-size/seu-usuario/nome-do-repositorio?style=for-the-badge)
-![MIT License](https://img.shields.io/github/license/seu-usuario/nome-do-repositorio?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/gustavohen27/qr-code-generator?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/gustavohen27/qr-code-generator?style=for-the-badge)
+![MIT License](https://img.shields.io/github/license/gustavohen27/qr-code-generator?style=for-the-badge)
 
 Uma ferramenta desktop robusta desenvolvida em **Python** que permite a criação de QR Codes profissionais. Diferente de geradores comuns, este projeto foca na **identidade visual**, permitindo a inclusão de logos e personalização completa de cores.
 
