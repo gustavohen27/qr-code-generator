@@ -1,12 +1,12 @@
 # 🎯 Gerador de QR Code Customizado
 
-![GitHub language count](https://img.shields.io/github/languages/count/gustavohen27/qr-code-generator?style=for-the-badge)
-![GitHub repo size](https://img.shields.io/github/repo-size/gustavohen27/qr-code-generator?style=for-the-badge)
-![MIT License](https://img.shields.io/github/license/gustavohen27/qr-code-generator?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/gustavohen27/qr-code-generator?style=for-the-badge&color=blue)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Status](https://img.shields.io/badge/Status-Portfólio-green?style=for-the-badge)
 
 Uma ferramenta desktop robusta desenvolvida em **Python** que permite a criação de QR Codes profissionais. Diferente de geradores comuns, este projeto foca na **identidade visual**, permitindo a inclusão de logos e personalização completa de cores.
 
-## 📸 Captura de Tela
+## 📸 Demonstração
 
 ![Interface do Gerador de QR Code](preview.jpg)
 
@@ -26,6 +26,15 @@ O projeto foi construído utilizando as seguintes bibliotecas:
 * **[Tkinter](https://docs.python.org/3/library/tkinter.html):** Para a interface gráfica (GUI).
 * **[Library qrcode](https://pypi.org/project/qrcode/):** Motor de geração dos códigos.
 * **[Pillow (PIL)](https://python-pillow.org/):** Processamento e manipulação de imagens e logos.
+
+## 🧠 Desafio Técnico: Processamento em Lote (Bulk Generation)
+
+O ponto mais desafiador e gratificante deste projeto foi a implementação do **Gerador Múltiplo**. Diferente de geradores simples, este módulo exigiu uma lógica de programação mais apurada para:
+
+1. **Automação de Fluxo:** Criar um sistema que itera sobre listas de dados sem interromper a execução da interface.
+2. **Consistência de Design:** Garantir que as regras de redimensionamento de logo e paleta de cores fossem aplicadas identicamente a todos os arquivos do lote.
+3. **Gestão de Arquivos:** Implementar um tratamento de erros para evitar conflitos de nomes e garantir que cada arquivo fosse salvo corretamente no diretório de destino.
+
 ## 🚀 Como Executar o Projeto
 
 ### Pré-requisitos
@@ -36,3 +45,12 @@ Você precisará ter o **Python 3.x** instalado em sua máquina.
 1. Clone o repositório:
 ```bash
 git clone [https://github.com/gustavohen27/qr-code-generator.git](https://github.com/gustavohen27/qr-code-generator.git)
+
+## 📄 Licença & Copyright
+
+Este projeto está disponível para visualização como parte do meu portfólio profissional. 
+
+© **Gustavo Henrique Silva de Souza**, 2026. Todos os direitos reservados.
+
+---
+Desenvolvido por [gustavohen27](https://www.linkedin.com/in/gustavosouza-dev/) 🚀
