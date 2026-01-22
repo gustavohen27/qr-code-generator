@@ -1,28 +1,38 @@
-# 🎯 Gerador de QR Code
+# 🎯 Gerador de QR Code Customizado
 
-Um aplicativo desktop em Python para gerar QR Codes personalizados com suporte a logos, cores e exportação em múltiplos formatos. Ideal para quem precisa criar QR Codes com identidade visual própria.
+![GitHub language count](https://img.shields.io/github/languages/count/seu-usuario/nome-do-repositorio?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/seu-usuario/nome-do-repositorio?style=for-the-badge)
+![MIT License](https://img.shields.io/github/license/seu-usuario/nome-do-repositorio?style=for-the-badge)
+
+Uma ferramenta desktop robusta desenvolvida em **Python** que permite a criação de QR Codes profissionais. Diferente de geradores comuns, este projeto foca na **identidade visual**, permitindo a inclusão de logos e personalização completa de cores.
 
 ## 📸 Captura de Tela
 
 ![Interface do Gerador de QR Code](preview.jpg)
 
-## 🚀 Funcionalidades
+## ✨ Funcionalidades
 
-- Geração de QR Codes a partir de qualquer texto ou URL
-- Inserção de imagem/logo central com redimensionamento automático
-- Personalização de cores (fundo e frente)
-- Exportação em formatos PNG, JPG e SVG
-- Interface gráfica intuitiva com Tkinter
+- [x] **Versatilidade:** Gere QR Codes de URLs, textos, Wi-Fi ou contatos.
+- [x] **Branding:** Insira sua logo centralizada com redimensionamento automático para não quebrar a leitura.
+- [x] **Estilização:** Controle total sobre a cor do código (Foreground) e do fundo (Background).
+- [x] **Alta Resolução:** Exportação disponível em formatos raster (**PNG, JPG**) e vetorial (**SVG**).
+- [x] **Preview:** Visualize o resultado em tempo real antes de salvar.
 
 ## 🛠️ Tecnologias Utilizadas
 
-- [Python 3.x](https://www.python.org/)
-- [Tkinter](https://docs.python.org/3/library/tkinter.html) — Interface gráfica
-- [qrcode](https://pypi.org/project/qrcode/) — Geração de QR Codes
-- [Pillow](https://pypi.org/project/Pillow/) — Manipulação de imagens
-- [os, io, base64] — Utilitários internos
+O projeto foi construído utilizando as seguintes bibliotecas:
 
-### 🎯 Exemplos de QR Codes gerados
+* **[Python](https://www.python.org/):** Linguagem base.
+* **[Tkinter](https://docs.python.org/3/library/tkinter.html):** Para a interface gráfica (GUI).
+* **[Library qrcode](https://pypi.org/project/qrcode/):** Motor de geração dos códigos.
+* **[Pillow (PIL)](https://python-pillow.org/):** Processamento e manipulação de imagens e logos.
+## 🚀 Como Executar o Projeto
 
-![QR Code 1](example1.png)
-![QR Code 2](example2.png)
+### Pré-requisitos
+Você precisará ter o **Python 3.x** instalado em sua máquina.
+
+### Instalação
+
+1. Clone o repositório:
+```bash
+git clone [https://github.com/gustavohen27/qr-code-generator.git](https://github.com/gustavohen27/qr-code-generator.git)
