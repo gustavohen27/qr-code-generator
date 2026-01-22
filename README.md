@@ -47,6 +47,12 @@ Você precisará ter o **Python 3.x** instalado em sua máquina.
 git clone [https://github.com/gustavohen27/qr-code-generator.git](https://github.com/gustavohen27/qr-code-generator.git)
 ```
 
+## 🚀 Roadmap de Evolução
+- [x] Suporte para arquivos CSV/Excel (Automação de planilhas).
+- [ ] Interface com tema escuro (Dark Mode).
+- [ ] Versão executável (.exe) para fácil distribuição.
+- [ ] Histórico local de códigos gerados.
+
 ## 📄 Licença & Copyright
 
 > **Copyright © 2026 Gustavo Henrique.**
