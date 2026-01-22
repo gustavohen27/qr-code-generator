@@ -42,9 +42,10 @@ Você precisará ter o **Python 3.x** instalado em sua máquina.
 
 ### Instalação
 
-1. Clone o repositório:
+1. **Clone o repositório:**
 ```bash
 git clone [https://github.com/gustavohen27/qr-code-generator.git](https://github.com/gustavohen27/qr-code-generator.git)
+```
 
 ## 📄 Licença & Copyright
 
